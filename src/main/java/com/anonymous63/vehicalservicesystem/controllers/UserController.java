@@ -31,4 +31,15 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<APIResponse<UserDTO>> getUser(@PathVariable Long id) {
+        UserDTO userDTO = this.userService.findById(id);
+        APIResponse<UserDTO> response = APIResponse.<UserDTO>builder()
+                .status(true)
+                .message("User fetched successfully")
+                .results(userDTO)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

@@ -1,9 +1,11 @@
 package com.anonymous63.vehicalservicesystem.dtos;
 
+import com.anonymous63.vehicalservicesystem.utils.CustomDtoName;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+@CustomDtoName("User")
 @Data
 @EqualsAndHashCode
 public class UserDTO {

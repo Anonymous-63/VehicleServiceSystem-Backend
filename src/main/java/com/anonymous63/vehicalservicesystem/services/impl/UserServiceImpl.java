@@ -1,9 +1,11 @@
 package com.anonymous63.vehicalservicesystem.services.impl;
 
 import com.anonymous63.vehicalservicesystem.dtos.UserDTO;
+import com.anonymous63.vehicalservicesystem.exceptions.ResourceNotFoundException;
 import com.anonymous63.vehicalservicesystem.models.User;
 import com.anonymous63.vehicalservicesystem.repositories.UserRepo;
 import com.anonymous63.vehicalservicesystem.services.UserService;
+import com.anonymous63.vehicalservicesystem.utils.CustomeDtoNameResolver;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findById(Long id) {
-        return null;
+        User user = this.userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(CustomeDtoNameResolver.resolve(UserDTO.class), "id", id));
+        return this.modelMapper.map(user, UserDTO.class);
     }
 
     @Override
@@ -56,5 +59,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> enable() {
         return List.of();
+    }
+
+    @Override
+    public String getEntityName() {
+        return User.class.getClass().getSimpleName();
     }
 }

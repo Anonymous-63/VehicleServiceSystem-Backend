@@ -11,5 +11,6 @@ public interface CRUDService<T> {
     List<T> findAll();
     List<T> disable();
     List<T> enable();
+    String getEntityName();
 
 }
